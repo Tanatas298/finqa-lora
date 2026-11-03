@@ -23,8 +23,12 @@ facts of the question they answer.
 | Qwen3-4B, zero-shot | DSL description only |
 | Qwen3-4B / 8B / 14B, prompted | plus 4 solved training examples, retrieved by question similarity (TF-IDF) |
 | Qwen3-4B / 14B, prompted + guided | same prompt, decoding restricted to valid programs |
-| Qwen3-4B + LoRA | fine-tuned, no examples in the prompt |
+| Qwen3-4B + LoRA, run 1 (seed 0) and run 2 (seed 1) | fine-tuned, no examples in the prompt |
 
+- Each prompt example is shown as its question, its **gold supporting facts** (the sentences
+  and table rows needed to answer it, as annotated in FinQA) and its gold program. Full pages
+  for 4 examples would not fit the context window. The question being answered always comes
+  with its full page and no gold facts.
 - All models run through the same vLLM code (`scripts/evaluate.py`): greedy decoding, thinking
   mode off, up to 256 output tokens.
 - Qwen3-14B is the official AWQ 4-bit checkpoint, because the 16-bit model does not fit in
@@ -72,8 +76,8 @@ operations, quoted row names or outputs cut off at the token limit.
   models are resampled on the same questions.
 - **Significance:** exact McNemar test on the questions where exactly one of two models is
   right.
-- **Seeds:** the final configuration was trained twice. With two runs both values are shown and
-  no standard deviation is claimed.
+- **Seeds:** the final configuration was trained twice, run 1 (seed 0) and run 2 (seed 1).
+  With two runs both values are shown and no standard deviation is claimed.
 - Code: `src/finqa_ft/stats.py`, tested in `tests/test_stats.py`.
 
 ## Data hygiene
@@ -91,7 +95,7 @@ operations, quoted row names or outputs cut off at the token limit.
 
 ## Error labelling
 
-100 failures of the fine-tuned model (run 1) were sampled with a fixed seed
+100 failures of the fine-tuned model (run 1, seed 0) were sampled with a fixed seed
 (`scripts/error_sample.py`) and labelled by hand into eight categories
 ([error_labels.csv](../reports/error_labels.csv)). A gold label is counted as wrong or
 ambiguous only when the model's own answer is a defensible reading of the question. Labels are

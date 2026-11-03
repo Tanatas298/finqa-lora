@@ -45,8 +45,8 @@ does the arithmetic itself. Code, evaluation and all results:
 
 | Model | Execution accuracy [95% CI] | Program accuracy |
 |---|---|---|
-| **This adapter (seed 0)** | **75.3 [72.8, 77.9]** | 71.0 |
-| Same recipe, seed 1 (not published) | 76.0 [73.5, 78.5] | 71.6 |
+| **This adapter: run 1 (seed 0)** | **75.3 [72.8, 77.9]** | 71.0 |
+| Same recipe, run 2 (seed 1), not published | 76.0 [73.5, 78.5] | 71.6 |
 | Qwen3-14B AWQ, 4 retrieved examples, guided decoding | 69.7 [67.0, 72.3] | 64.3 |
 | Qwen3-14B AWQ, 4 retrieved examples | 68.3 [65.6, 70.9] | 63.1 |
 | Qwen3-4B, 4 retrieved examples | 59.7 [56.8, 62.5] | 54.8 |
@@ -55,9 +55,10 @@ does the arithmetic itself. Code, evaluation and all results:
 GPT-4, EMNLP 2025) reports 75.32 and the APOLLO ensemble (LREC-COLING 2024) 71.07; see the
 repository for what is and is not directly comparable.
 
-**Which seed this is.** The recipe was trained with two seeds. Seed 0 is published because it
-scored higher on the validation split (76.6% vs 75.9% official execution accuracy). Seed 1 is
-higher on test (76.0% vs 75.3%); test results played no part in the choice.
+**Which run this is.** The recipe was trained twice: run 1 (seed 0) and run 2 (seed 1). Run 1
+is published because it scored higher on the validation split (76.6% vs 75.9% official execution
+accuracy). Run 2 is higher on test (76.0% vs 75.3%); test results played no part in the
+choice.
 
 ## Training
 
@@ -68,7 +69,9 @@ higher on test (76.0% vs 75.3%); test results played no part in the choice.
 - LoRA r=16, alpha=32, dropout 0, on q, k, v, o, gate, up and down projections.
 - 2 epochs (782 steps), learning rate 2e-4, cosine schedule, warm-up 3%, effective batch 16,
   max length 4,096. Learning rate and epoch count chosen on validation.
-- Hardware: one RTX 3090 (24 GB), Unsloth + TRL; about 1 h 45 min, peak 9.6 GB.
+- Hardware: one 24 GB GPU, Unsloth + TRL. Run 2 (seed 1) ran without interruption: 1.8 hours,
+  peak 9.5 GB of GPU memory. Run 1 (seed 0, this adapter) was resumed after an interruption,
+  so its total time was not recorded; peak 9.6 GB.
 
 ## Usage
 
@@ -91,15 +94,15 @@ model = PeftModel.from_pretrained(model, "Tanatas298/qwen3-4b-finqa-lora")
 
 table = [["", "2015", "2014"], ["net earnings from continuing operations", "3538", "3480"]]
 ex = Example(
-    "demo",
-    "demo",
-    "what was the percentage change in net earnings from 2014 to 2015?",
-    [],
-    [],
-    table,
-    "",
-    "",
-    {},
+    id="demo",
+    filename="demo",
+    question="what was the percentage change in net earnings from 2014 to 2015?",
+    pre_text=[],
+    post_text=[],
+    table=table,
+    program="",
+    answer="",
+    gold_inds={},
 )
 inputs = tok(render(tok, messages(ex)), return_tensors="pt").to(model.device)
 out = model.generate(**inputs, max_new_tokens=256, do_sample=False)
@@ -118,7 +121,7 @@ For serving, merge the adapter and use vLLM (`scripts/serve.sh` in the repositor
 - About one answer in four on the FinQA test set is wrong. Part of FinQA's gold labels are
   themselves wrong or ambiguous (an estimated 7–12% of test questions).
 - FinQA has been public since 2021 and may be part of Qwen3's pre-training data.
-- Two training seeds only; the published one is not the best on test.
+- Two training runs only; the published run 1 (seed 0) is not the better one on test.
 - **Not financial advice.** Outputs must not be used for investment, accounting, audit or any
   other financial decision without independent verification.
 

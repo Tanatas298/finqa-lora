@@ -16,3 +16,4 @@ reports/*.log
 unsloth_compiled_cache/
 backup/
 reports/rerun/
+build/

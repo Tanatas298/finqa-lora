@@ -33,8 +33,8 @@ NAMES = {  # tag: display name
     "qwen3-14b-awq-fewshot-guided": "Qwen3-14B (4-bit), prompted + guided",
     "qwen3-4b-lora-n500-ep2": "Qwen3-4B + LoRA, 500 examples",
     "qwen3-4b-lora-n1500-ep2": "Qwen3-4B + LoRA, 1,500 examples",
-    LORA: "Qwen3-4B + LoRA, run 1",
-    SEED1: "Qwen3-4B + LoRA, run 2",
+    LORA: "Qwen3-4B + LoRA, run 1 (seed 0)",
+    SEED1: "Qwen3-4B + LoRA, run 2 (seed 1)",
 }
 MAIN = [  # rows of the main tables
     "qwen3-4b-zeroshot",
@@ -63,8 +63,8 @@ VAL_RUNS = {  # validation runs behind each training choice
     "qwen3-4b-lora-n1500-lr1e-4": ("Learning rate", "1e-4 (1,500 examples, 1 epoch)"),
     "qwen3-4b-lora-n1500-lr2e-4": ("Learning rate", "2e-4 (1,500 examples, 1 epoch)"),
     "qwen3-4b-lora-full-ep1": ("Epochs", "1 (all data)"),
-    LORA: ("Epochs / run", "2 (all data), run 1"),
-    SEED1: ("Run", "2 (all data), run 2"),
+    LORA: ("Epochs / run", "2 (all data), run 1 (seed 0)"),
+    SEED1: ("Run", "2 (all data), run 2 (seed 1)"),
 }
 EXAMPLE = "LMT/2015/page_89.pdf-2"
 CATEGORIES = [
@@ -209,20 +209,30 @@ def validation_runs() -> dict:
 # README blocks
 
 
-def readme_results(s: dict) -> str:
-    rows = [
-        [
-            NAMES[t],
-            pct(s[t]["official_exec"][0]),
-            pct(s[t]["official_prog"]),
-            pct(s[t]["valid"]),
-            f"{s[t]['latency_p50_s']:.2f} s",
-            f"{s[t]['weights_gb']:.0f} GB",
+def readme_results(s: dict, mean: dict) -> str:
+    def row(name: str, r: dict) -> list[str]:
+        return [
+            name,
+            with_ci(r["official_exec"]),
+            pct(r["official_prog"]),
+            pct(r["valid"]),
+            f"{r['latency_p50_s']:.2f} s",
+            f"{r['weights_gb']:.0f} GB",
         ]
-        for t in README_ROWS
-    ]
-    head = ["Model", "Accuracy", "Program match", "Valid output", "Latency", "Size"]
-    return table(head, rows, bold_rows(README_ROWS))
+
+    rows = [row(NAMES[t], s[t]) for t in README_ROWS]
+    rows.append(row("Qwen3-4B + LoRA, mean of the 2 runs", mean))
+    head = ["Model", "Accuracy (95% CI)", "Program match", "Valid output", "Latency", "Size"]
+    return table(head, rows, bold_rows(README_ROWS) | {len(rows) - 1})
+
+
+def lora_mean(scored, s: dict, idx) -> dict:
+    """Both runs averaged per question; the interval is a bootstrap over questions."""
+    ex = (
+        col(scored[LORA], "official_exec").astype(float) + col(scored[SEED1], "official_exec")
+    ) / 2
+    avg = {k: (s[LORA][k] + s[SEED1][k]) / 2 for k in ("official_prog", "valid", "latency_p50_s")}
+    return {"official_exec": ci(ex, idx), "weights_gb": s[LORA]["weights_gb"], **avg}
 
 
 def readme_runs(s: dict) -> str:
@@ -236,7 +246,7 @@ def readme_runs(s: dict) -> str:
         a, b = s[LORA][k], s[SEED1][k]
         a, b = (a[0], b[0]) if isinstance(a, tuple) else (a, b)
         rows.append([label, pct(a), pct(b), pct((a + b) / 2)])
-    return table(["", "Run 1", "Run 2", "Mean"], rows)
+    return table(["", "Run 1 (seed 0)", "Run 2 (seed 1)", "Mean"], rows)
 
 
 def readme_curve(s: dict) -> str:
@@ -266,8 +276,9 @@ def worked_example(ex, scored) -> str:
 
 
 def results_md(
-    s: dict, sig: list, lk: dict, err: dict, val: dict, n: int, exs, scored, run: dict
+    s: dict, sig: list, lk: dict, err: dict, val: dict, n: int, exs, scored, runs: tuple
 ) -> str:
+    run0, run = runs
     n_un = lk["unseen_company_year_questions"]
     parts = [
         "# Results",
@@ -333,11 +344,12 @@ def results_md(
         "The final configuration (all 6,251 examples, 2 epochs, learning rate 2e-4) was trained "
         "twice with different seeds. With two runs both values are shown; no standard deviation "
         "is claimed.",
-        table(["Test set", "Run 1", "Run 2", "Mean"], seed_rows),
+        table(["Test set", "Run 1 (seed 0)", "Run 2 (seed 1)", "Mean"], seed_rows),
         "Every training choice was made on the validation set (883 questions):",
         table(["Choice", "Setting", "Validation accuracy"], rows),
-        "Run 1 is the model on the Hugging Face Hub because it is better on validation; run 2 is "
-        "better on test, which played no part in the choice. Run 1 was resumed from step 500 "
+        "Run 1 (seed 0) is the model on the Hugging Face Hub because it is better on validation; "
+        "run 2 (seed 1) is better on test, which played no part in the choice. Run 1 was resumed "
+        "from step 500 "
         "after an interruption, so its logged training loss covers only the last steps and is "
         "not comparable with run 2's.",
     ]
@@ -420,7 +432,7 @@ def results_md(
     noise_rows = [[NAMES[t], f"{err['noise'][t]} / {k}"] for t in MAIN]
     parts += [
         "## Error analysis",
-        f"{err['n']} failures of run 1, sampled with a fixed seed and labelled by hand "
+        f"{err['n']} failures of run 1 (seed 0), sampled with a fixed seed and labelled by hand "
         "([error_labels.csv](../reports/error_labels.csv)).",
         table(["Category", "Count"], [[c, err["counts"].get(c, 0)] for c in CATEGORIES]),
         f"A gold label counts as wrong or ambiguous only when the model's own answer is "
@@ -472,17 +484,20 @@ def results_md(
         "Batched inference on one 24 GB GPU. Energy cost = measured board power × time × "
         "€0.30/kWh, GPU only.",
         table(["Model", "Weights", "Questions per second", "Energy per 1,000 questions"], rows),
-        f"Training the final model: {run['steps']} steps, "
-        f"{run['wall_seconds'] / 3600:.1f} hours, peak {run['peak_vram_gb']:.1f} GB of GPU "
-        "memory (run 2, which ran without interruption).",
+        f"Training the final model ({run['steps']} steps): run 2 (seed 1) ran without "
+        f"interruption and took {run['wall_seconds'] / 3600:.1f} hours with a peak of "
+        f"{run['peak_vram_gb']:.1f} GB of GPU memory. Run 1 (seed 0) was resumed after an "
+        f"interruption, so its total time was not recorded; its peak was "
+        f"{run0['peak_vram_gb']:.1f} GB.",
     ]
     return "\n\n".join(parts) + "\n"
 
 
-def final_run() -> dict:
-    """Training log of the uninterrupted final run (all data, 2 epochs, seed 1)."""
+def final_runs() -> tuple[dict, dict]:
+    """Training logs of the two final runs (all data, 2 epochs): seed 0 and seed 1."""
     runs = [json.loads(x) for x in (REPORTS / "train_runs.jsonl").read_text().splitlines()]
-    return next(r for r in runs if r["seed"] == 1 and r["train_limit"] is None and r["epochs"] == 2)
+    final = [r for r in runs if r["train_limit"] is None and r["epochs"] == 2]
+    return tuple(next(r for r in final if r["seed"] == seed) for seed in (0, 1))
 
 
 def fill(path: Path, blocks: dict[str, str]) -> None:
@@ -520,13 +535,13 @@ def main() -> None:
     fill(
         Path("README.md"),
         {
-            "results": readme_results(s),
+            "results": readme_results(s, lora_mean(scored, s, idx)),
             "runs": readme_runs(s),
             "curve": readme_curve(s),
             "example": worked_example(exs[EXAMPLE], scored),
         },
     )
-    md = results_md(s, sig, lk, err, val, len(ids), exs, scored, final_run())
+    md = results_md(s, sig, lk, err, val, len(ids), exs, scored, final_runs())
     Path("docs/results.md").write_text(md, encoding="utf-8", newline="\n")
     analysis = {
         "n_test": len(ids),

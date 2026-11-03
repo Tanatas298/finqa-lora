@@ -31,7 +31,7 @@ Zhiyu Chen. It is used, through `src/finqa_ft/official.py`, for the headline met
 
 ## Models
 
-Qwen3 models (Qwen/Qwen3-1.7B, 4B, 8B, 14B-AWQ, 32B-AWQ) by the Qwen team, Apache-2.0.
+Qwen3 models (Qwen/Qwen3-4B, Qwen/Qwen3-8B, Qwen/Qwen3-14B-AWQ) by the Qwen team, Apache-2.0.
 Fine-tuned weights produced by this project inherit Apache-2.0 and are not committed.
 
 ## Software

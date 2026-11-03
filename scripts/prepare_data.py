@@ -55,9 +55,12 @@ def main() -> None:
         "--tokenizer", default=None, help="e.g. Qwen/Qwen3-4B; skip token stats if unset"
     )
     ap.add_argument("--out", type=Path, default=Path("reports/data_checks.json"))
+    ap.add_argument("--download-only", action="store_true", help="skip the checks")
     args = ap.parse_args()
 
     download(args.raw_dir)
+    if args.download_only:
+        return
     splits = {s: load_split(s, args.raw_dir) for s in SPLITS}
     sizes = {s: len(v) for s, v in splits.items()}
     assert sizes == SPLIT_SIZES, sizes

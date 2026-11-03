@@ -24,8 +24,8 @@ All numbers on the FinQA test set (1,147 questions), scored with FinQA's officia
 | Qwen3-8B, prompted | 53.9% (51.0–56.8) | 49.2% | 83.9% | 2.90 s | 102 |
 | Qwen3-14B (4-bit), prompted | 68.3% (65.6–70.9) | 63.1% | 93.6% | 1.07 s | 25 |
 | Qwen3-14B (4-bit), prompted + guided | 69.7% (67.0–72.3) | 64.3% | 99.5% | 0.98 s | 22 |
-| **Qwen3-4B + LoRA, run 1** | **75.3% (72.8–77.9)** | **71.0%** | **99.6%** | **0.40 s** | **21** |
-| **Qwen3-4B + LoRA, run 2** | **76.0% (73.5–78.5)** | **71.6%** | **99.9%** | **0.41 s** | **21** |
+| **Qwen3-4B + LoRA, run 1 (seed 0)** | **75.3% (72.8–77.9)** | **71.0%** | **99.6%** | **0.40 s** | **21** |
+| **Qwen3-4B + LoRA, run 2 (seed 1)** | **76.0% (73.5–78.5)** | **71.6%** | **99.9%** | **0.41 s** | **21** |
 
 *Prompted*: 4 similar solved training examples in the prompt. *Guided*: decoding restricted to valid programs. *Latency*: median seconds per question, batch size 1. *Tokens*: mean output length.
 
@@ -35,12 +35,12 @@ Accuracy difference in percentage points, paired over the same questions; p-valu
 
 | Comparison | Difference | p-value |
 |---|---|---|
-| Qwen3-4B + LoRA, run 1 vs Qwen3-4B, prompted | +15.6 (+13.0 to +18.2) | < 0.0001 |
-| Qwen3-4B + LoRA, run 1 vs Qwen3-4B, prompted + guided | +13.0 (+10.5 to +15.5) | < 0.0001 |
-| Qwen3-4B + LoRA, run 1 vs Qwen3-14B (4-bit), prompted | +7.1 (+4.7 to +9.4) | < 0.0001 |
-| Qwen3-4B + LoRA, run 1 vs Qwen3-14B (4-bit), prompted + guided | +5.7 (+3.3 to +7.9) | < 0.0001 |
-| Qwen3-4B + LoRA, run 2 vs Qwen3-14B (4-bit), prompted | +7.8 (+5.4 to +10.1) | < 0.0001 |
-| Qwen3-4B + LoRA, run 2 vs Qwen3-14B (4-bit), prompted + guided | +6.4 (+4.1 to +8.6) | < 0.0001 |
+| Qwen3-4B + LoRA, run 1 (seed 0) vs Qwen3-4B, prompted | +15.6 (+13.0 to +18.2) | < 0.0001 |
+| Qwen3-4B + LoRA, run 1 (seed 0) vs Qwen3-4B, prompted + guided | +13.0 (+10.5 to +15.5) | < 0.0001 |
+| Qwen3-4B + LoRA, run 1 (seed 0) vs Qwen3-14B (4-bit), prompted | +7.1 (+4.7 to +9.4) | < 0.0001 |
+| Qwen3-4B + LoRA, run 1 (seed 0) vs Qwen3-14B (4-bit), prompted + guided | +5.7 (+3.3 to +7.9) | < 0.0001 |
+| Qwen3-4B + LoRA, run 2 (seed 1) vs Qwen3-14B (4-bit), prompted | +7.8 (+5.4 to +10.1) | < 0.0001 |
+| Qwen3-4B + LoRA, run 2 (seed 1) vs Qwen3-14B (4-bit), prompted + guided | +6.4 (+4.1 to +8.6) | < 0.0001 |
 | Qwen3-4B, prompted + guided vs Qwen3-4B, prompted | +2.6 (+1.7 to +3.7) | < 0.0001 |
 | Qwen3-14B (4-bit), prompted + guided vs Qwen3-14B (4-bit), prompted | +1.4 (+0.7 to +2.2) | 0.0001 |
 
@@ -48,7 +48,7 @@ Accuracy difference in percentage points, paired over the same questions; p-valu
 
 The final configuration (all 6,251 examples, 2 epochs, learning rate 2e-4) was trained twice with different seeds. With two runs both values are shown; no standard deviation is claimed.
 
-| Test set | Run 1 | Run 2 | Mean |
+| Test set | Run 1 (seed 0) | Run 2 (seed 1) | Mean |
 |---|---|---|---|
 | Accuracy | 75.3% | 76.0% | 75.7% |
 | Program match | 71.0% | 71.6% | 71.3% |
@@ -62,10 +62,10 @@ Every training choice was made on the validation set (883 questions):
 | Learning rate | 1e-4 (1,500 examples, 1 epoch) | 66.8% |
 | Learning rate | 2e-4 (1,500 examples, 1 epoch) | 69.5% |
 | Epochs | 1 (all data) | 74.3% |
-| Epochs / run | 2 (all data), run 1 | 76.6% |
-| Run | 2 (all data), run 2 | 75.9% |
+| Epochs / run | 2 (all data), run 1 (seed 0) | 76.6% |
+| Run | 2 (all data), run 2 (seed 1) | 75.9% |
 
-Run 1 is the model on the Hugging Face Hub because it is better on validation; run 2 is better on test, which played no part in the choice. Run 1 was resumed from step 500 after an interruption, so its logged training loss covers only the last steps and is not comparable with run 2's.
+Run 1 (seed 0) is the model on the Hugging Face Hub because it is better on validation; run 2 (seed 1) is better on test, which played no part in the choice. Run 1 was resumed from step 500 after an interruption, so its logged training loss covers only the last steps and is not comparable with run 2's.
 
 ## Training data size
 
@@ -91,8 +91,8 @@ FinQA's splits share no report pages, but 243 annual reports (company and year) 
 | Qwen3-8B, prompted | 59.2% (49.5–68.9) | 53.4% (50.2–56.4) |
 | Qwen3-14B (4-bit), prompted | 67.0% (58.3–75.7) | 68.4% (65.5–71.2) |
 | Qwen3-14B (4-bit), prompted + guided | 68.9% (60.2–77.7) | 69.7% (66.9–72.5) |
-| **Qwen3-4B + LoRA, run 1** | **75.7% (67.0–83.5)** | **75.3% (72.6–78.0)** |
-| **Qwen3-4B + LoRA, run 2** | **74.8% (66.0–82.5)** | **76.1% (73.6–78.7)** |
+| **Qwen3-4B + LoRA, run 1 (seed 0)** | **75.7% (67.0–83.5)** | **75.3% (72.6–78.0)** |
+| **Qwen3-4B + LoRA, run 2 (seed 1)** | **74.8% (66.0–82.5)** | **76.1% (73.6–78.7)** |
 
 Only 3 test questions come from a company that is not in the training set at all, too few to score. For 91 test questions (7.9%) at least one prompt example comes from the same report.
 
@@ -104,7 +104,7 @@ Accuracy = share of valid programs × accuracy among valid programs.
 |---|---|---|---|
 | Qwen3-4B, prompted | 89.4% | 66.8% | 59.7% |
 | Qwen3-4B, prompted + guided | 99.0% | 63.0% | 62.3% |
-| **Qwen3-4B + LoRA, run 1** | **99.6%** | **75.7%** | **75.3%** |
+| **Qwen3-4B + LoRA, run 1 (seed 0)** | **99.6%** | **75.7%** | **75.3%** |
 
 Fine-tuning adds 15.6 points over the prompted 4B model: 7.3 from producing valid programs and 8.3 from getting more of them right (each factor's change weighted by the average of the other factor). Guided decoding fixes the format of the prompted model but adds only 2.6 points: most of its invalid programs were on questions it would have got wrong anyway.
 
@@ -118,12 +118,12 @@ Accuracy by where the needed numbers are:
 | Qwen3-8B, prompted | 59.3% | 48.4% | 39.2% |
 | Qwen3-14B (4-bit), prompted | 74.6% | 58.7% | 57.0% |
 | Qwen3-14B (4-bit), prompted + guided | 76.5% | 59.4% | 57.6% |
-| **Qwen3-4B + LoRA, run 1** | **80.7%** | **68.9%** | **62.7%** |
-| **Qwen3-4B + LoRA, run 2** | **81.7%** | **70.0%** | **61.4%** |
+| **Qwen3-4B + LoRA, run 1 (seed 0)** | **80.7%** | **68.9%** | **62.7%** |
+| **Qwen3-4B + LoRA, run 2 (seed 1)** | **81.7%** | **70.0%** | **61.4%** |
 
 ## Error analysis
 
-100 failures of run 1, sampled with a fixed seed and labelled by hand ([error_labels.csv](../reports/error_labels.csv)).
+100 failures of run 1 (seed 0), sampled with a fixed seed and labelled by hand ([error_labels.csv](../reports/error_labels.csv)).
 
 | Category | Count |
 |---|---|
@@ -146,8 +146,8 @@ A gold label counts as wrong or ambiguous only when the model's own answer is de
 | Qwen3-8B, prompted | 2 / 37 |
 | Qwen3-14B (4-bit), prompted | 4 / 37 |
 | Qwen3-14B (4-bit), prompted + guided | 5 / 37 |
-| Qwen3-4B + LoRA, run 1 | 0 / 37 |
-| Qwen3-4B + LoRA, run 2 | 2 / 37 |
+| Qwen3-4B + LoRA, run 1 (seed 0) | 0 / 37 |
+| Qwen3-4B + LoRA, run 2 (seed 1) | 2 / 37 |
 
 ## Official vs lenient scoring
 
@@ -161,8 +161,8 @@ The lenient metric (0.1% tolerance, answers off by exactly ×100 count as correc
 | Qwen3-8B, prompted | 53.9% | 61.9% | 88 |
 | Qwen3-14B (4-bit), prompted | 68.3% | 71.0% | 25 |
 | Qwen3-14B (4-bit), prompted + guided | 69.7% | 72.6% | 27 |
-| **Qwen3-4B + LoRA, run 1** | **75.3%** | **77.5%** | **22** |
-| **Qwen3-4B + LoRA, run 2** | **76.0%** | **77.9%** | **21** |
+| **Qwen3-4B + LoRA, run 1 (seed 0)** | **75.3%** | **77.5%** | **22** |
+| **Qwen3-4B + LoRA, run 2 (seed 1)** | **76.0%** | **77.9%** | **21** |
 
 Invalid programs left under guided decoding:
 
@@ -183,7 +183,7 @@ Batched inference on one 24 GB GPU. Energy cost = measured board power × time �
 | Qwen3-8B, prompted | 16.4 GB | 1.3 | €0.027 |
 | Qwen3-14B (4-bit), prompted | 10.0 GB | 1.1 | €0.030 |
 | Qwen3-14B (4-bit), prompted + guided | 10.0 GB | 1.3 | €0.027 |
-| Qwen3-4B + LoRA, run 1 | 8.0 GB | 6.0 | €0.006 |
-| Qwen3-4B + LoRA, run 2 | 8.0 GB | 6.0 | €0.006 |
+| Qwen3-4B + LoRA, run 1 (seed 0) | 8.0 GB | 6.0 | €0.006 |
+| Qwen3-4B + LoRA, run 2 (seed 1) | 8.0 GB | 6.0 | €0.006 |
 
-Training the final model: 782 steps, 1.8 hours, peak 9.5 GB of GPU memory (run 2, which ran without interruption).
+Training the final model (782 steps): run 2 (seed 1) ran without interruption and took 1.8 hours with a peak of 9.5 GB of GPU memory. Run 1 (seed 0) was resumed after an interruption, so its total time was not recorded; its peak was 9.6 GB.

@@ -62,6 +62,7 @@ def _save(fig, path: Path) -> None:
 
 def size_chart(by: dict, out: Path) -> None:
     fig, ax = _axes("Accuracy vs model size", "parameters (billions)")
+    ax.set_ylabel("accuracy (%, y-axis cropped)", color=MUTED, fontsize=9)
     prompted = [(4, "qwen3-4b-fewshot"), (8, "qwen3-8b-fewshot"), (14, "qwen3-14b-awq-fewshot")]
     ax.plot(
         [x for x, _ in prompted],
@@ -75,7 +76,7 @@ def size_chart(by: dict, out: Path) -> None:
     for x, t in ((4, "qwen3-4b-fewshot-guided"), (14, "qwen3-14b-awq-fewshot-guided")):
         _point(ax, x, by[t], GUIDED_C, "prompted + guided" if x == 14 else "", dx=8, dy=4, size=6)
     _point(ax, 4, by["qwen3-4b-lora-full-ep2"], LORA_C, "")
-    _point(ax, 4.45, by["qwen3-4b-lora-full-ep2-seed1"], LORA_C, "4B + LoRA (2 seeds)", dx=8)
+    _point(ax, 4.45, by["qwen3-4b-lora-full-ep2-seed1"], LORA_C, "4B + LoRA (runs 1 and 2)", dx=8)
     ax.set_xticks([4, 8, 14], ["4B", "8B", "14B"])
     ax.set_xlim(2.5, 16.5)
     ax.set_ylim(48, 82)
@@ -83,7 +84,8 @@ def size_chart(by: dict, out: Path) -> None:
 
 
 def curve_chart(by: dict, curve: list, out: Path) -> None:
-    fig, ax = _axes("Accuracy vs training examples", "training examples")
+    fig, ax = _axes("Accuracy vs training examples", "training examples (log scale)")
+    ax.set_ylabel("accuracy (%, y-axis cropped)", color=MUTED, fontsize=9)
     xs = [n for n, _ in curve]
     ms = [100 * by[t]["official_exec"][0] for _, t in curve]
     los = [100 * by[t]["official_exec"][1] for _, t in curve]
@@ -138,5 +140,5 @@ def latency_chart(by: dict, out: Path) -> None:
         if dx < 0:
             ax.texts[-1].set_ha("right")
     ax.set_xlim(0, 3.3)
-    ax.set_ylim(10, 82)
+    ax.set_ylim(0, 82)
     _save(fig, out)

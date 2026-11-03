@@ -11,8 +11,8 @@ which `src/finqa_ft/program.py` executes.
   factor-100 percent/fraction allowance) is kept as a secondary column. See
   `docs/evaluation.md`.
 - Programs are inspectable: the demo prints each step.
-- Prompted baselines get the same DSL description; thinking runs may reason freely but must end
-  with `Program: ...`.
+- Prompted baselines get the same DSL description and must end their answer with
+  `Program: ...`.
 
 Interpreter check: gold programs reproduce the gold answers on 100% of train, validation and test (strict
 tolerance) after handling FinQA's duplicated cell values (`-13 ( 13 )`) and duplicate row
