@@ -1,0 +1,44 @@
+{
+  "n": 1147,
+  "exec_acc": 0.7262423714036618,
+  "exec_acc_strict": 0.7027027027027027,
+  "program_acc": 0.6346992153443767,
+  "official_exec_acc": 0.6965998256320837,
+  "official_prog_acc": 0.6425457715780296,
+  "valid_rate": 0.997384481255449,
+  "by_steps": {
+    "1": 0.7706422018348624,
+    "2": 0.7017114914425427,
+    "3+": 0.5
+  },
+  "by_evidence": {
+    "table": 0.7861189801699717,
+    "text": 0.6289752650176679,
+    "both": 0.6329113924050633
+  },
+  "unseen_report": {
+    "n": 103,
+    "exec_acc": 0.7378640776699029
+  },
+  "latency_p50_s": 0.9759289834983065,
+  "latency_p95_s": 1.5038488185029564,
+  "tokens_per_answer": 22.320836965998257,
+  "tag": "qwen3-14b-awq-fewshot-guided",
+  "model": "Qwen/Qwen3-14B-AWQ",
+  "split": "test",
+  "limit": null,
+  "shots": 4,
+  "guided": true,
+  "dtype": "torch.float16",
+  "quantization": "auto_awq",
+  "weights_gb": 9.98,
+  "vllm_gpu_mem_budget_gb": 19.2,
+  "hit_max_tokens": 0,
+  "prompt_tokens_mean": 1882.6521360069746,
+  "batch_seconds": 882.0692141440013,
+  "batch_seconds_per_question": 0.769022854528336,
+  "throughput_q_per_s": 1.3003514708458555,
+  "mean_power_w": 416.9969882352941,
+  "cost_eur_per_1000q": 0.026723351185202065,
+  "price_eur_per_kwh": 0.3
+}

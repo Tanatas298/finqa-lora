@@ -1,0 +1,26 @@
+[project]
+name = "finqa-ft"
+version = "0.1.0"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["numpy", "sympy", "tqdm"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["unsloth_compiled_cache", "src/finqa_ft/vendor", "outputs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+testpaths = ["tests"]
+addopts = "--ignore=outputs"

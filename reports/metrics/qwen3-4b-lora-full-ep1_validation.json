@@ -1,0 +1,41 @@
+{
+  "n": 883,
+  "exec_acc": 0.7644394110985278,
+  "exec_acc_strict": 0.7463193657984145,
+  "program_acc": 0.6908267270668177,
+  "valid_rate": 1.0,
+  "by_steps": {
+    "1": 0.8221797323135756,
+    "2": 0.7247386759581882,
+    "3+": 0.5068493150684932
+  },
+  "by_evidence": {
+    "table": 0.8284132841328413,
+    "text": 0.702020202020202,
+    "both": 0.6083916083916084
+  },
+  "unseen_report": {
+    "n": 77,
+    "exec_acc": 0.8311688311688312
+  },
+  "latency_p50_s": 0.3653687770001852,
+  "latency_p95_s": 0.5550260031006473,
+  "tokens_per_answer": 20.996602491506227,
+  "tag": "qwen3-4b-lora-full-ep1",
+  "model": "outputs/qwen3-4b-lora-full/merged-ep1",
+  "split": "validation",
+  "limit": null,
+  "shots": 0,
+  "dtype": "torch.bfloat16",
+  "quantization": "none",
+  "weights_gb": 8.04,
+  "vllm_gpu_mem_budget_gb": 16.8,
+  "hit_max_tokens": 0,
+  "prompt_tokens_mean": 1260.8788221970556,
+  "batch_seconds": 138.08019594600046,
+  "batch_seconds_per_question": 0.15637621284937764,
+  "throughput_q_per_s": 6.3948344941900155,
+  "mean_power_w": 416.02,
+  "cost_eur_per_1000q": 0.005421302672466506,
+  "price_eur_per_kwh": 0.3
+}

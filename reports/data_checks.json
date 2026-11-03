@@ -1,0 +1,55 @@
+{
+  "sizes": {
+    "train": 6251,
+    "validation": 883,
+    "test": 1147
+  },
+  "page_overlap": {
+    "test&train": 0,
+    "test&validation": 0,
+    "train&validation": 0
+  },
+  "company_year_overlap": {
+    "test&train": 243,
+    "test&validation": 93,
+    "train&validation": 197
+  },
+  "test_questions_unseen_company_year": 103,
+  "gold_programs": {
+    "train": {
+      "match_rate": 1.0,
+      "mismatches": []
+    },
+    "validation": {
+      "match_rate": 1.0,
+      "mismatches": []
+    },
+    "test": {
+      "match_rate": 1.0,
+      "mismatches": []
+    }
+  },
+  "prompt_tokens": {
+    "train": {
+      "mean": 1291.9990401535754,
+      "p50": 1259.0,
+      "p95": 1843.4,
+      "p99": 2483.24,
+      "max": 3523
+    },
+    "validation": {
+      "mean": 1281.3997734994336,
+      "p50": 1257.0,
+      "p95": 1823.0,
+      "p99": 2301.96,
+      "max": 2383
+    },
+    "test": {
+      "mean": 1280.9119442022668,
+      "p50": 1251.0,
+      "p95": 1849.2,
+      "p99": 2508.0,
+      "max": 2774
+    }
+  }
+}

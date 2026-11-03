@@ -1,0 +1,42 @@
+{
+  "n": 200,
+  "exec_acc": 0.635,
+  "exec_acc_strict": 0.53,
+  "program_acc": 0.455,
+  "valid_rate": 0.8,
+  "by_steps": {
+    "1": 0.5964912280701754,
+    "2": 0.7246376811594203,
+    "3+": 0.5294117647058824
+  },
+  "by_evidence": {
+    "table": 0.7083333333333334,
+    "text": 0.52,
+    "both": 0.5333333333333333
+  },
+  "unseen_report": {
+    "n": 18,
+    "exec_acc": 0.6666666666666666
+  },
+  "latency_p50_s": 2.6518925205000414,
+  "latency_p95_s": 5.124877438199815,
+  "tokens_per_answer": 105.86,
+  "tag": "qwen3-8b-fewshot",
+  "model": "Qwen/Qwen3-8B",
+  "split": "validation",
+  "shots": 4,
+  "thinking": false,
+  "dtype": "torch.bfloat16",
+  "quantization": "none",
+  "weights_gb": 16.38,
+  "vllm_gpu_mem_budget_gb": 21.6,
+  "hit_max_tokens": 5,
+  "prompt_tokens_mean": 1885.83,
+  "batch_seconds": 122.07253824600002,
+  "batch_seconds_per_question": 0.6103626912300001,
+  "throughput_q_per_s": 1.6383701270875595,
+  "mean_power_w": 405.4676068376068,
+  "cost_eur_per_1000q": 0.02062352497633244,
+  "price_eur_per_kwh": 0.3,
+  "limit": 200
+}

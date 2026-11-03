@@ -1,0 +1,101 @@
+id,program,pred,category,note
+L/2009/page_84.pdf-3,"subtract(128.16, const_100), divide(#0, const_100)",0.2816,wrong or ambiguous gold label,"wrong gold: ratio, not growth rate"
+MRO/2017/page_96.pdf-4,"subtract(8.25, 4.50)",3.75,scale or percent error,percent written without %
+AES/2002/page_128.pdf-2,"subtract(30, 30)",0.0,wrong or ambiguous gold label,ambiguous: question says 2003 to 2003
+ETR/2017/page_372.pdf-3,"subtract(705.4, 703.1), divide(#0, 705.4)",0.00326,wrong or ambiguous gold label,wrong gold: decrease measured on the 2017 base
+UA/2011/page_69.pdf-2,"divide(6882, 77724)",0.08854,wrong number extracted,denominator includes current maturities
+SNA/2012/page_110.pdf-3,"multiply(707, 48.87)",34551.09,wrong or ambiguous gold label,"wrong gold: fair value is shares x price, gold subtracts"
+MRO/2003/page_45.pdf-1,"multiply(74, const_1000), multiply(75, const_1000), multiply(78, const_1000), add(#0, #1), add(#2, #3)",227000.0,scale or percent error,"multiplies by 1,000; values already in thousands"
+HIG/2011/page_53.pdf-2,"add(271, 39), add(#0, 57)",367.0,wrong or ambiguous gold label,ambiguous: question does not say what to compute
+SNA/2007/page_49.pdf-3,"multiply(109.8, const_1000000), divide(#0, 2616618)",41.96256,wrong or ambiguous gold label,"wrong gold: gold subtracts 1,000,000 from 109.8"
+JPM/2009/page_175.pdf-3,"divide(121417, 93200)",1.30276,wrong or ambiguous gold label,wrong gold: uses 2009 values for a 2008 question
+ECL/2017/page_94.pdf-1,"subtract(35.0, 13.7)",21.3,scale or percent error,percent written without %
+SYY/2006/page_71.pdf-1,"subtract(100690000, 92710000), divide(#0, 92710000)",0.08607,wrong or ambiguous gold label,wrong gold: uses fiscal 2004-2005 for a 2005-2006 question
+BLL/2012/page_31.pdf-4,"subtract(207.62, const_100), subtract(107.76, const_100), divide(#0, #1)",13.86856,wrong operation,ratio of returns instead of difference; gold also uses a wrong value
+GS/2013/page_220.pdf-1,"subtract(248.36, 100), divide(#0, 100)",1.4836,scale or percent error,fraction vs percentage points
+UNP/2015/page_56.pdf-3,"divide(4489, 23988)",0.18714,wrong number extracted,total operating revenues instead of total freight revenues
+AON/2015/page_96.pdf-2,"add(104, 61), add(#0, 73), divide(#1, const_3)",79.33333,wrong or ambiguous gold label,wrong gold: gold program is not an average
+ETR/2016/page_23.pdf-4,"subtract(5829, 154)",5675.0,wrong or ambiguous gold label,ambiguous: pre-tax 154 vs net-of-tax 100
+C/2009/page_243.pdf-1,"divide(5.2, 6.2)",0.83871,wrong or ambiguous gold label,ambiguous: source text garbled ('$ 5 2022 billion')
+HOLX/2007/page_126.pdf-1,"add(12300, 17000), add(#0, 2800)",32100.0,missing step,omits goodwill from the sum
+AON/2015/page_96.pdf-4,"multiply(85%, 65), divide(411636, #0)",7450.42534,wrong operation,
+AMT/2012/page_118.pdf-4,"add(800, 700), add(#0, 192)",1692.0,wrong or ambiguous gold label,"ambiguous: 'how many' asked, gold returns a ratio"
+IPG/2006/page_77.pdf-1,"subtract(258.6, 250.0), divide(#0, const_1000000)",1e-05,wrong operation,"divides by 1,000,000 instead of subtracting the penalty"
+SLG/2011/page_91.pdf-6,"subtract(2912456, 2728290), divide(#0, 2728290)",0.0675,wrong or ambiguous gold label,ambiguous: gold returns a ratio for 'percent of the change'
+AON/2018/page_87.pdf-3,"table_average(uncertain tax positions, none)",,table lookup error,table_average over a row that is only in the text
+JPM/2008/page_117.pdf-2,"add(32, 38)",70.0,scale or percent error,"answer in millions, gold converts to dollars"
+NCLH/2018/page_64.pdf-4,"divide(165172, 974444)",0.1695,wrong operation,
+HWM/2015/page_173.pdf-2,"divide(29, 63), divide(8, 66), subtract(#0, #1)",0.33911,wrong number extracted,
+DVN/2015/page_79.pdf-1,"subtract(85.05, 81.05)",4.0,table lookup error,mixes values from two rows; gold also uses the wrong year
+SNA/2012/page_110.pdf-1,"subtract(509, 707), divide(#0, 707)",-0.28006,wrong or ambiguous gold label,wrong gold: subtracts instead of divides
+GPN/2014/page_92.pdf-2,"multiply(766801, 40.85), divide(#0, const_1000000)",31.32382,wrong number extracted,column (a) instead of column (c)
+ETR/2008/page_298.pdf-2,"add(500, 750)",1250.0,wrong or ambiguous gold label,ambiguous: whether short-term debt counts
+EL/2008/page_59.pdf-1,"divide(47.0, 7.75%)",606.45161,wrong number extracted,47.0 is not in the facts; gold also looks wrong
+NCLH/2018/page_64.pdf-3,"divide(31420, 4915507)",0.00639,wrong number extracted,
+FIS/2006/page_31.pdf-1,"add(81, 63), add(#0, 19), divide(19, #1)",0.11656,wrong or ambiguous gold label,wrong gold: Texas left out of the total
+BLK/2015/page_124.pdf-3,"add(134, 133), divide(#0, 1203)",0.22195,missing step,two of three years
+ADBE/1999/page_64.pdf-1,"add(0.7, 3.6)",4.3,wrong number extracted,
+MRK/2013/page_125.pdf-4,"divide(665, 1.2), subtract(#0, const_1), multiply(#1, const_100)",55316.66667,scale or percent error,billion vs million not converted
+RCL/2016/page_6.pdf-2,"divide(173000, 298)",580.53691,wrong number extracted,ships instead of berths
+GPN/2013/page_92.pdf-2,"subtract(8985, 11057), divide(#0, 11057)",-0.18739,wrong or ambiguous gold label,"wrong gold: percentage change asked, gold is a difference"
+RCL/2012/page_75.pdf-3,"subtract(459.8, 398.0), divide(#0, 398.0)",0.15528,scale or percent error,gold in percent (x100)
+AAL/2015/page_114.pdf-2,"divide(199, 2655)",0.07495,wrong or ambiguous gold label,wrong gold: uses the year 1990 as an amount
+ALLE/2015/page_24.pdf-2,"subtract(8.8, 2.4)",6.4,wrong number extracted,
+JPM/2009/page_175.pdf-4,"subtract(318063, 60224)",257839.0,wrong or ambiguous gold label,ambiguous: 'total equity' of a trading-assets table
+ZBH/2007/page_67.pdf-1,"subtract(1.0, 8.8), divide(#0, 8.8)",-0.88636,wrong or ambiguous gold label,wrong gold: 2006 to 2007 change computed from 2007
+DVN/2012/page_77.pdf-2,"divide(6725, 11664)",0.57656,scale or percent error,gold in percent (x100)
+UNP/2016/page_52.pdf-2,"divide(3543, 21813)",0.16243,wrong or ambiguous gold label,wrong gold: uses 2016 values for a 2015 question
+MRO/2013/page_19.pdf-1,"add(189, 2605), add(#0, 189), divide(#1, const_1000)",2.983,wrong or ambiguous gold label,"wrong gold: question asks millions, gold is thousands"
+MAR/2004/page_45.pdf-2,"subtract(848, 1373)",-525.0,table lookup error,wrong column
+IPG/2006/page_77.pdf-3,"divide(240.9, 250.0), subtract(#0, const_1)",-0.0364,wrong number extracted,
+HWM/2015/page_173.pdf-1,"subtract(8, 2)",6.0,wrong or ambiguous gold label,ambiguous: 'how bigger' as ratio or difference
+AAL/2010/page_72.pdf-2,"subtract(525, 460), divide(#0, 525)",0.12381,wrong operand order,sign of a decrease
+HII/2015/page_121.pdf-2,"divide(1717, 144)",11.92361,wrong operation,
+ETR/2016/page_150.pdf-4,"add(10.6, 11), add(#0, 11.2)",32.8,wrong or ambiguous gold label,wrong gold: two years summed for 'next three years'
+RSG/2010/page_57.pdf-2,"divide(750.0, 600.0)",1.25,wrong number extracted,face amounts instead of remaining discount
+STT/2011/page_69.pdf-3,"divide(105, 156)",0.67308,wrong number extracted,2010 total instead of cumulative total
+CME/2010/page_69.pdf-3,"multiply(612.5, 4.46%)",27.3175,wrong number extracted,wrong rate (4.46% vs 4.72%)
+BKR/2017/page_56.pdf-2,"divide(997, 7.0)",142.42857,scale or percent error,billion vs million not converted
+JPM/2010/page_273.pdf-2,"add(9.7, 10.2)",19.9,missing step,cash left out
+CMCSA/2008/page_36.pdf-3,"divide(2321, 4244)",0.54689,wrong or ambiguous gold label,wrong gold: uses 2008 values for a 2006 question
+JPM/2008/page_117.pdf-1,"add(32, 38), divide(#0, const_2)",35.0,scale or percent error,"answer in millions, gold converts to dollars"
+PNC/2012/page_65.pdf-5,"divide(60.6, 22%)",275.45455,wrong or ambiguous gold label,wrong gold: total assets = 60.6 / 22%
+ADBE/1999/page_64.pdf-2,"divide(0.4, 772)",0.00052,wrong number extracted,
+UNP/2011/page_24.pdf-4,"subtract(1917, 699), divide(#0, 699)",1.74249,wrong or ambiguous gold label,"ambiguous: question asks 2001, table has 2009-2011"
+GS/2013/page_220.pdf-3,"subtract(236.20, const_100), divide(#0, const_100)",1.362,scale or percent error,fraction vs percentage points
+AWK/2012/page_117.pdf-2,"subtract(180993, 158578), divide(#0, 158578)",0.14135,wrong or ambiguous gold label,ambiguous: start of 2011 vs end of 2011 balance
+BKR/2017/page_56.pdf-1,"divide(799, 997)",0.8014,wrong number extracted,gold also uses financing instead of operating cash flow
+MMM/2007/page_23.pdf-1,"divide(781, 817)",0.95594,wrong number extracted,
+AMT/2012/page_118.pdf-3,"add(71529, 83539), divide(#0, 585.3)",264.93764,scale or percent error,thousands vs millions
+MSI/2007/page_70.pdf-3,"divide(7729, 5038), subtract(#0, const_1)",0.53414,wrong number extracted,segment instead of consolidated sales; gold also wrong
+GPN/2010/page_89.pdf-4,"multiply(713, 42), multiply(762, 42), subtract(#0, #1), divide(#2, #1)",-0.0643,wrong or ambiguous gold label,wrong gold: uses the vested-row price for 2009
+EMR/2017/page_78.pdf-1,"divide(174335, 2248)",77.55116,missing step,restricted stock left out of the yearly pace
+UA/2011/page_69.pdf-1,"subtract(5.3, 3.5), divide(#0, 5.3)",0.33962,wrong operand order,sign of a decrease
+WRK/2018/page_107.pdf-4,"add(127.1, 70.4), divide(#0, 127.1), subtract(#1, const_1)",0.55389,other,gold also unclear
+CE/2009/page_65.pdf-2,"add(90, 200), add(#0, 5), add(#1, 27), add(#2, 48), add(#3, 8), add(#4, 15), add(#5, -1)",392.0,wrong operation,
+ETR/2017/page_372.pdf-1,"add(705.4, 703.1), divide(#0, const_2)",704.25,wrong or ambiguous gold label,wrong gold: adds 2 before averaging
+ETR/2015/page_17.pdf-4,"divide(107, 66)",1.62121,wrong operation,both answers wrong: ratio should use the tax amount 107 - 66
+AMT/2006/page_104.pdf-1,"add(253907, 1278), add(#0, 654)",255839.0,other,question garbled
+CDNS/2018/page_66.pdf-2,"divide(426932, 341003)",1.25199,missing step,ratio without subtracting 1
+STT/2007/page_111.pdf-4,"subtract(558368, 506032), divide(#0, 506032)",0.10342,wrong or ambiguous gold label,"wrong gold: percent change asked, gold is a difference"
+C/2009/page_197.pdf-1,"subtract(9.6, 8.7), divide(#0, 9.6)",0.09375,wrong or ambiguous gold label,wrong gold: tax rate divided by after-tax amount
+PM/2017/page_32.pdf-2,"subtract(3.79, 3.68), multiply(#0, const_100)",11.0,wrong or ambiguous gold label,wrong gold: basis points = difference x 100
+AMT/2007/page_29.pdf-2,"divide(57100, 163000)",0.35031,wrong number extracted,57100 instead of 57800; gold also wrong
+UPS/2007/page_49.pdf-3,"divide(325, 1782)",0.18238,table lookup error,wrong year
+PNC/2012/page_65.pdf-4,"subtract(51052, 367)",50685.0,wrong number extracted,possibly ambiguous
+GPN/2010/page_87.pdf-2,"subtract(18.1, 14.6), divide(#0, 14.6)",0.23973,missing step,tax benefit not subtracted
+AOS/2010/page_18.pdf-1,"subtract(178.8, const_100), subtract(123.8, const_100), subtract(#0, #1)",55.0,scale or percent error,percentage points vs fraction
+HIG/2004/page_140.pdf-3,"subtract(-23, 23)",-46.0,wrong number extracted,
+SNA/2007/page_49.pdf-4,"subtract(1.11, 1.08), divide(#0, 1.08)",0.02778,wrong or ambiguous gold label,wrong gold: adds instead of subtracts
+GS/2018/page_69.pdf-3,"divide(32.73, 6%), subtract(#0, 32.73)",512.77,wrong operation,
+C/2008/page_22.pdf-4,"subtract(581, 123)",458.0,wrong operation,subtract instead of add
+SNA/2018/page_31.pdf-2,"multiply(335000, 159.35)",53382250.0,table lookup error,wrong period row
+PNC/2012/page_68.pdf-2,"subtract(843, 772), divide(#0, 772)",0.09197,wrong operand order,direction of change
+GS/2018/page_78.pdf-3,"divide(1.42, 25%), subtract(const_1, #0), multiply(#1, const_100), divide(#2, const_100), multiply(#3, 1.42)",-6.6456,wrong operation,
+DRE/2002/page_15.pdf-2,"subtract(21.1, 15.6), divide(#0, 15.6)",0.35256,wrong operand order,direction of change; gold also x100
+MRO/2003/page_84.pdf-1,"subtract(60%, 50%)",0.1,scale or percent error,gold in percentage points
+GS/2014/page_51.pdf-1,"divide(856240, 911507)",0.93937,wrong or ambiguous gold label,ambiguous: 'percentage in total assets'
+MSI/2008/page_69.pdf-1,"divide(12099, 66%), divide(28383, const_100), subtract(#0, #1)",18047.98818,wrong operation,gold also wrong
+MKTX/2012/page_42.pdf-1,"subtract(37.79, 24.19)",13.6,wrong number extracted,low price instead of high
+AON/2015/page_96.pdf-1,"add(411636, 439000), add(#0, 556000), divide(#1, const_3)",468878.66667,wrong or ambiguous gold label,wrong gold: sum of two years for a 3-year average
+MSI/2014/page_76.pdf-3,"subtract(11.02, 9.52), divide(#0, 9.52)",0.15756,wrong or ambiguous gold label,wrong gold: divides the ratio by 9.52 again

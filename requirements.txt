@@ -1,0 +1,7 @@
+vllm==0.32.0
+torch==2.13.0
+transformers==5.19.0
+datasets==5.1.0
+matplotlib==3.11.2
+PyYAML==6.0.3
+openai==3.42.0

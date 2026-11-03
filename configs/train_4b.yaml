@@ -1,0 +1,14 @@
+model: Qwen/Qwen3-4B
+max_seq_len: 4096          # longest train example is 3,523 tokens: 0 dropped
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.0
+learning_rate: 2.0e-4
+epochs: 2
+batch_size: 4
+grad_accum: 4
+warmup_ratio: 0.03
+save_steps: 100            # resume checkpoint every ~13 min; rerun resumes automatically
+seed: 0
+train_limit: null          # 500 / 1500 for the data-efficiency curve
+output_dir: outputs/qwen3-4b-lora-full
